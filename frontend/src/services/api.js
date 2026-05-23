@@ -9,10 +9,17 @@ async function getAuthHeaders() {
 
 
   const token = await user.getIdToken()
-  return {
+  const headers = {
     'Authorization': `Bearer ${token}`,
     'Content-Type': 'application/json'
   }
+
+  const openRouterKey = localStorage.getItem('openRouterApiKey')
+  if (openRouterKey) {
+    headers['X-OpenRouter-Key'] = openRouterKey
+  }
+
+  return headers
 }
 
 // Helper to parse numeric header values

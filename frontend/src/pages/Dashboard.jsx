@@ -180,28 +180,46 @@ export default function Dashboard() {
               </div>
             )}
 
-            {/* Quick Actions */}
-            <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-10">
+            {/* Modular Hubs */}
+            <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 mb-10">
               {[
-                { to: '/jobs', icon: Search, label: 'Find Jobs', sub: 'Opportunities', color: 'primary' },
-                { to: '/job-alerts', icon: Bell, label: 'Alerts', sub: 'Get notified', color: 'secondary' },
-                { to: '/interview-prep', icon: Mic, label: 'Interview', sub: 'AI practice', color: 'primary' },
-                { to: '/upload', icon: Sparkles, label: 'AI Enhance', sub: 'Optimize', color: 'secondary' },
-                { to: '/job-tracker', icon: Briefcase, label: 'Tracker', sub: `${jobStats.total} tracked`, color: 'emerald-500' },
-                { to: '/community', icon: Users, label: 'Community', sub: 'Connect', color: 'primary' },
-                { to: '/fellowship', icon: GraduationCap, label: 'Fellowship', sub: 'Earn & learn', color: 'primary', isNew: true },
-              ].map((action, idx) => (
+                { to: '/hub/resume', icon: FileText, label: 'Resume Builder', desc: 'Create, parse, and optimize ATS resumes.', sub: `${resumes.length} resumes`, color: 'primary', badge: 'AI' },
+                { to: '/hub/jobs', icon: Briefcase, label: 'Job Finder', desc: 'Search jobs, set alerts, and track applications.', sub: `${jobStats.total} tracked`, color: 'primary' },
+                { to: '/hub/portfolio', icon: Globe, label: 'Portfolio Builder', desc: 'Sync repos and deploy portfolios instantly.', sub: `${portfolioCount} portfolios`, color: 'secondary' },
+                { to: '/hub/career', icon: GraduationCap, label: 'Career Growth', desc: 'AI mock interviews, email & profile tuning.', sub: '4 tools', color: 'emerald-500', badge: 'AI' },
+                { to: '/hub/community', icon: Users, label: 'Community Hub', desc: 'Group chat, public posts, and direct DMs.', sub: 'Connect', color: 'primary' },
+              ].map((hub, idx) => (
                 <motion.div key={idx} variants={itemVariants}>
-                  <Link to={action.to} className="group">
-                    <div className={`relative p-5 rounded-2xl bg-card border border-border overflow-hidden transition-all duration-300 hover:border-${action.color} hover:shadow-xl hover:shadow-${action.color}/5 hover:-translate-y-1`}>
-                      {action.isNew && (
-                        <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-primary/20 rounded text-[9px] text-primary font-black uppercase tracking-wider">NEW</div>
+                  <Link to={hub.to} className="group block h-full">
+                    <div className="relative p-6 rounded-3xl bg-card border border-border overflow-hidden transition-all duration-300 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 h-full flex flex-col justify-between">
+                      {/* Hover glow effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                      
+                      {/* Badge */}
+                      {hub.badge && (
+                        <div className="absolute top-4 right-4 px-2 py-0.5 bg-primary/10 rounded-full text-[9px] text-primary font-black uppercase tracking-wider border border-primary/20">
+                          {hub.badge}
+                        </div>
                       )}
-                      <div className={`w-12 h-12 bg-muted rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                        <action.icon className={`w-6 h-6 text-foreground group-hover:text-primary transition-colors`} />
+
+                      <div>
+                        {/* Icon */}
+                        <div className={`w-14 h-14 bg-${hub.color}/10 border border-${hub.color}/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-${hub.color}/15 transition-all duration-300`}>
+                          <hub.icon className={`w-7 h-7 text-${hub.color}`} />
+                        </div>
+                        
+                        {/* Content */}
+                        <h3 className="text-lg font-black text-foreground mb-2 group-hover:text-primary transition-colors">{hub.label}</h3>
+                        <p className="text-muted-foreground text-xs font-semibold leading-relaxed mb-4">{hub.desc}</p>
                       </div>
-                      <h3 className="text-sm font-bold text-foreground mb-1">{action.label}</h3>
-                      <p className="text-muted-foreground text-xs font-medium">{action.sub}</p>
+
+                      {/* Footer Info */}
+                      <div className="flex items-center justify-between text-[11px] font-bold text-muted-foreground pt-4 border-t border-border/40 mt-auto">
+                        <span className="uppercase tracking-wider">{hub.sub}</span>
+                        <span className="text-primary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all flex items-center gap-0.5">
+                          Open <ArrowRight className="w-3 h-3" />
+                        </span>
+                      </div>
                     </div>
                   </Link>
                 </motion.div>
