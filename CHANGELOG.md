@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/anurag3407/career-pilot/compare/v1.18.0...v1.19.0) (2026-05-26)
+
+
+### Features
+
+* add 150 new portfolio template folders, dummy_data.json, and issue batch files ([8fbd5e1](https://github.com/anurag3407/career-pilot/commit/8fbd5e19a058b6b08b97d14ba7c6479ab27bf867))
+
 # [1.18.0](https://github.com/anurag3407/career-pilot/compare/v1.17.0...v1.18.0) (2026-05-26)
 
 
