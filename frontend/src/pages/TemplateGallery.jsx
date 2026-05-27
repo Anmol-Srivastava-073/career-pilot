@@ -15,9 +15,6 @@ import WeatherMood from "../components/portfolio/templates/Weather_Mood/index";
 import RetroProjects from "../components/portfolio/templates/2D_Retro_8bit/Projects";
 import FantasyRPGProjects from "../components/portfolio/templates/Fantasy_RPG/Projects";
 import Navbar from '../components/Navbar'
-import GraffitiHero from "../components/portfolio/templates/Graffiti_StreetArt/Hero";
-
-
 
 function FilterSelect({ value, onChange, options, className = "" }) {
   const [open, setOpen] = useState(false);
