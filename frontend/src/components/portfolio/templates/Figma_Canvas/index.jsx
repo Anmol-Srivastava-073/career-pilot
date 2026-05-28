@@ -191,7 +191,7 @@ function ProjectCard({ project, index }) {
         </h4>
         <p className="text-xs text-[#888] mb-3 line-clamp-2 leading-relaxed">{project.description}</p>
         <div className="flex flex-wrap gap-1.5 mb-3">
-          {project.techStack.map((tech) => (
+          {(Array.isArray(project.techStack) ? project.techStack : []).map((tech) => (
             <span
               key={tech}
               className="px-2 py-0.5 text-[10px] rounded bg-[#2c2c2c] text-[#b3b3b3] border border-[#3c3c3c]"
