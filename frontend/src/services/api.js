@@ -18,28 +18,6 @@ const headers = {
   'Content-Type': 'application/json'
 }
 
-const aiConfigStr = localStorage.getItem('aiConfig')
-
-if (aiConfigStr) {
-  try {
-    const aiConfig = JSON.parse(aiConfigStr)
-
-    if (aiConfig.provider) {
-      headers['X-AI-Provider'] = aiConfig.provider
-    }
-
-    if (aiConfig.apiKey) {
-      headers['X-AI-Key'] = decryptKey(aiConfig.apiKey)
-    }
-
-    if (aiConfig.model) {
-      headers['X-AI-Model'] = aiConfig.model
-    }
-  } catch (e) {
-    console.error(e)
-  }
-}
-
 return headers
 }
 

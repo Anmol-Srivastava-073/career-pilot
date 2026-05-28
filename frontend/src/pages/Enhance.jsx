@@ -455,34 +455,10 @@ async function getAuthHeaders() {
 
   const token = await user.getIdToken()
 
-  const headers = {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
+  return {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
   }
-
-  const aiConfigStr = localStorage.getItem('aiConfig')
-
-  if (aiConfigStr) {
-    try {
-      const aiConfig = JSON.parse(aiConfigStr)
-
-      if (aiConfig.provider) {
-        headers['X-AI-Provider'] = aiConfig.provider
-      }
-
-      if (aiConfig.apiKey) {
-        headers['X-AI-Key'] = decryptKey(aiConfig.apiKey)
-      }
-
-      if (aiConfig.model) {
-        headers['X-AI-Model'] = aiConfig.model
-      }
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
-  return headers
 }
 
   const handleEnhanceWithAI = async () => {
@@ -494,7 +470,11 @@ async function getAuthHeaders() {
       yearsOfExperience: 0,
       skills: atsAnalysis?.missingKeywords || [],
       industry: '',
-      customInstructions: `Focus on improving: ${atsAnalysis?.improvements?.map(i => i.issue).join(', ') || 'general improvements'}`,
+      customInstructions: `Focus on improving: ${
+        (atsAnalysis?.improvements || [])
+          .map(i => i.issue)
+          .join(', ') || 'general improvements'
+        }`,
       profileInfo: {}
     }
 
@@ -502,6 +482,27 @@ async function getAuthHeaders() {
     let streamedResume = ''
 
     const headers = await getAuthHeaders()
+const aiConfigStr = localStorage.getItem('aiConfig')
+
+if (aiConfigStr) {
+  try {
+    const aiConfig = JSON.parse(aiConfigStr)
+
+    if (aiConfig.provider) {
+      headers['X-AI-Provider'] = aiConfig.provider
+    }
+
+    if (aiConfig.apiKey) {
+      headers['X-AI-Key'] = decryptKey(aiConfig.apiKey)
+    }
+
+    if (aiConfig.model) {
+      headers['X-AI-Model'] = aiConfig.model
+    }
+  } catch (e) {
+    console.error(e)
+  }
+}
 
 const response = await fetch('/api/enhance/stream', {
   method: 'POST',
@@ -524,6 +525,7 @@ const response = await fetch('/api/enhance/stream', {
     const decoder = new TextDecoder()
 
     let done = false
+    let buffer = ''
 
     while (!done) {
       const { value, done: doneReading } = await reader.read()
@@ -533,8 +535,14 @@ const response = await fetch('/api/enhance/stream', {
       const chunkValue = decoder.decode(value || new Uint8Array(), {
         stream: !done,
       })
+      buffer += chunkValue
 
-      const lines = chunkValue.split('\n')
+      const parts = buffer.split('\n\n')
+
+      buffer = parts.pop() || ''
+
+      for (const part of parts) {
+        const lines = part.split('\n')
 
       for (const line of lines) {
         if (!line.startsWith('data:')) continue
@@ -548,28 +556,26 @@ const response = await fetch('/api/enhance/stream', {
           continue
         }
 
+        let parsed
+
         try {
-          const parsed = JSON.parse(data)
-
-          // Handle streamed text chunk
-          if (parsed.type === 'chunk' && parsed.content) {
-            streamedResume += parsed.content
-            setStreamedText(streamedResume)
-          }
-
-          // Handle stream errors
-          if (parsed.type === 'error') {
-            throw new Error(parsed.message || 'Streaming failed')
-          }
-
+          parsed = JSON.parse(data)
         } catch {
-          // fallback plain text chunk
           streamedResume += data
+          setStreamedText(streamedResume)
+          continue
+        }
 
-          // OPTIONAL:
-          // setStreamedText(streamedResume)
+        if (parsed.type === 'error') {
+          throw new Error(parsed.message || 'Streaming failed')
+        }
+
+        if (parsed.type === 'chunk' && parsed.content) {
+          streamedResume += parsed.content
+          setStreamedText(streamedResume)
         }
       }
+    }
     }
 
     // Save final enhanced text
@@ -697,11 +703,6 @@ const response = await fetch('/api/enhance/stream', {
             </div>
 
             <div className="flex gap-4">
-            {streamedText && (
-  <div className="mt-6 rounded-xl border border-border p-4 whitespace-pre-wrap">
-  {streamedText || resume?.enhancedText || 'Enhancement will appear here...'}
-</div>
-)}
               <input
                 type="text"
                 value={jobRole}

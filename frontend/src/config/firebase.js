@@ -28,13 +28,12 @@ if (isFirebaseConfigValid) {
   //   appId: import.meta.env.VITE_FIREBASE_APP_ID
   // };
   const firebaseConfig = {
-  apiKey: "AIzaSyCrf4N2brJCruUp-R9Fdkx22KrsYorejgY",
-  authDomain: "career-pilot-dev-8995d.firebaseapp.com",
-  projectId: "career-pilot-dev-8995d",
-  storageBucket: "career-pilot-dev-8995d.firebasestorage.app",
-  messagingSenderId: "480332051188",
-  appId: "1:480332051188:web:f18deacac5c64f00e3a4a1",
-  measurementId: "G-9751HH3EMJ"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
   app = initializeApp(firebaseConfig);

@@ -49,7 +49,7 @@ useEffect(() => {
             const apiBase = import.meta.env.VITE_API_URL || '/api'
 
             const resp = await fetch(
-                `${apiBase}/auth/linkedin/token?code=${encodeURIComponent(code)}`
+                `${apiBase}/auth/linkedin/token/${encodeURIComponent(code)}`
             )
 
 if (!code) {
