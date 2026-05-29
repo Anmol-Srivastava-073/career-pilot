@@ -81,9 +81,13 @@ describe('JobSearch page', () => {
     expect(jobTypeSelect.value).toBe('All Types')
   })
 
-  test('renders API-provided match score badge on job cards', async () => {
+  test.each([
+    ['matchScore', 82, '82%'],
+    ['match_percentage', 68, '68%'],
+    ['matchPercentage', '82', '82%'],
+  ])('renders API-provided match score badge from %s on job cards', async (field, value, expectedScore) => {
     jobsApi.search.mockResolvedValue({
-      data: [{ id: '1', title: 'Frontend Developer', company: 'Test Company', matchScore: 82 }]
+      data: [{ id: '1', title: 'Frontend Developer', company: 'Test Company', [field]: value }]
     })
 
     render(
@@ -97,8 +101,7 @@ describe('JobSearch page', () => {
     })
     fireEvent.click(screen.getByRole('button', { name: /^Search$/i }))
 
-    expect(await screen.findByText('82%')).toBeInTheDocument()
-    expect(screen.getByText('Strong Match')).toBeInTheDocument()
-    expect(screen.getByTitle('Based on your resume')).toBeInTheDocument()
+    expect(await screen.findByText(expectedScore)).toBeInTheDocument()
+    expect(screen.getByLabelText(new RegExp(`${expectedScore} .* Based on your resume`))).toBeInTheDocument()
   })
 })

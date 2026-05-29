@@ -13,6 +13,7 @@ import Button from '../components/Button'
 import Input from '../components/Input'
 import AnalysisSkeleton from '../components/github/AnalysisSkeleton'
 import { SkeletonList } from '../components/ui/Skeleton'
+import { getGithubUsername } from '../utils/github'
 
 const AVATAR_GRADIENTS = [
   'from-indigo-500 to-purple-600',
@@ -226,14 +227,6 @@ const saveEdit = async () => {
 
   const externalHref = (url) =>
     url.startsWith('http') ? url : `https://${url}`
-
-  const getGithubUsername = (github) => {
-    const trimmed = github.trim()
-    if (!trimmed) return ''
-
-    const match = trimmed.match(/github\.com\/([^/?#]+)/i)
-    return (match?.[1] || trimmed.replace(/^@/, '')).replace(/\/$/, '')
-  }
 
   if (loading) {
     return (

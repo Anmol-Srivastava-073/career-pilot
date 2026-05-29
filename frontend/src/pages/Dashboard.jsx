@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { motion } from 'framer-motion'
@@ -34,6 +34,7 @@ import {
   SkeletonJobList,
   SkeletonList 
 } from '../components/ui/Skeleton'
+import { getGithubUsername } from '../utils/github'
 
 const STATUS_CONFIG = {
   saved: { label: 'Saved', color: 'bg-muted text-muted-foreground border border-border', icon: Star },
@@ -60,12 +61,24 @@ export default function Dashboard() {
     loading: false,
     stats: null
   })
+  const fetchRequestId = useRef(0)
+  const isMounted = useRef(false)
 
   useEffect(() => {
+    isMounted.current = true
     fetchData()
+
+    return () => {
+      isMounted.current = false
+      fetchRequestId.current += 1
+    }
   }, [])
 
   const fetchData = async () => {
+    const requestId = fetchRequestId.current + 1
+    fetchRequestId.current = requestId
+    const canUpdate = () => isMounted.current && fetchRequestId.current === requestId
+
     try {
       const [resumeRes, jobsRes, portfolioRes, userProfileRes] = await Promise.all([
         resumeApi.getAll().catch(() => ({ resumes: [] })),
@@ -73,6 +86,8 @@ export default function Dashboard() {
         portfolioApi.getAll().catch(() => ({ portfolioItems: [] })),
         userProfileApi.getMyProfile().catch(() => null)
       ])
+
+      if (!canUpdate()) return
 
       const fetchedResumes = Array.isArray(resumeRes.data) ? resumeRes.data : (resumeRes.resumes || resumeRes.data?.resumes || [])
       setResumes(fetchedResumes)
@@ -96,6 +111,8 @@ export default function Dashboard() {
         setGithubOverview({ connected: true, loading: true, stats: null })
         resumeApi.previewGitHub(githubUsername)
           .then((githubRes) => {
+            if (!canUpdate()) return
+
             const preview = githubRes.preview || githubRes.data || githubRes
             setGithubOverview({
               connected: true,
@@ -104,6 +121,8 @@ export default function Dashboard() {
             })
           })
           .catch(() => {
+            if (!canUpdate()) return
+
             setGithubOverview({ connected: true, loading: false, stats: null })
           })
       } else {
@@ -119,10 +138,14 @@ export default function Dashboard() {
       }
       setJobStats(stats)
     } catch (error) {
+      if (!canUpdate()) return
+
       console.error('Failed to fetch data:', error)
       setFetchError('Failed to load your dashboard. Please try again.')
       toast.error('Failed to load dashboard data')
     } finally {
+      if (!canUpdate()) return
+
       setLoading(false)
     }
   }
@@ -134,18 +157,9 @@ export default function Dashboard() {
     })
   }
 
-  const getGithubUsername = (github) => {
-    if (!github || typeof github !== 'string') return ''
-
-    const trimmed = github.trim()
-    if (!trimmed) return ''
-
-    const match = trimmed.match(/github\.com\/([^/?#]+)/i)
-    return (match?.[1] || trimmed.replace(/^@/, '')).replace(/\/$/, '')
-  }
-
   const buildGithubStats = (profile = {}) => {
-    const repositories = profile.topRepositories || profile.repositories || profile.repos || []
+    const repositorySource = profile.topRepositories || profile.repositories || profile.repos
+    const repositories = Array.isArray(repositorySource) ? repositorySource : []
     const languageSource =
       profile.topLanguages ||
       profile.languages ||
