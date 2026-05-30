@@ -1,0 +1,68 @@
+{
+  "personal": {
+    "name": "Alex Marine",
+    "title": "Full Stack Developer & Ocean Explorer",
+    "bio": "Passionate about building scalable web applications and exploring the depths of the digital and physical ocean. I specialize in React, Node.js, and creating immersive user experiences.",
+    "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=800&q=80",
+    "location": "San Francisco, CA"
+  },
+  "socials": {
+    "github": "https://github.com/alexmarine",
+    "linkedin": "https://linkedin.com/in/alexmarine",
+    "twitter": "https://twitter.com/alexmarine",
+    "email": "alex@example.com"
+  },
+  "skills": [
+    { "name": "React", "level": 95, "category": "Frontend" },
+    { "name": "Tailwind CSS", "level": 90, "category": "Frontend" },
+    { "name": "Node.js", "level": 85, "category": "Backend" },
+    { "name": "TypeScript", "level": 88, "category": "Languages" },
+    { "name": "Three.js", "level": 75, "category": "Graphics" },
+    { "name": "Docker", "level": 80, "category": "DevOps" }
+  ],
+  "projects": [
+    {
+      "title": "Ocean Wave Simulator",
+      "description": "A high-performance wave physics simulation built with Three.js and WebGL shaders.",
+      "techStack": ["Three.js", "WebGL", "React"],
+      "liveUrl": "https://waves.example.com",
+      "githubUrl": "https://github.com/alexmarine/waves",
+      "image": "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Coral Reef Tracker",
+      "description": "IoT-based monitoring system for coral reef health using real-time sensor data.",
+      "techStack": ["Node.js", "MQTT", "React Native"],
+      "liveUrl": "https://coral-tracker.example.com",
+      "githubUrl": "https://github.com/alexmarine/coral-tracker",
+      "image": "https://images.unsplash.com/photo-1468413253725-0d5181091126?auto=format&fit=crop&w=800&q=80"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Senior Frontend Engineer",
+      "company": "BlueTech Solutions",
+      "period": "2022 - Present",
+      "description": "Leading the development of a real-time maritime monitoring dashboard used by port authorities worldwide."
+    },
+    {
+      "role": "Full Stack Developer",
+      "company": "Deep Dive Startups",
+      "period": "2020 - 2022",
+      "description": "Built and maintained multiple MVPs for early-stage startups in the green-tech space."
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "Jane Doe",
+      "role": "CTO, BlueTech",
+      "text": "Alex is an exceptional developer who brings a unique creative perspective to every project. Their work on our dashboard was transformative.",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80"
+    }
+  ],
+  "stats": {
+    "yearsExperience": 6,
+    "projectsCompleted": 42,
+    "happyClients": 15
+  }
+}
