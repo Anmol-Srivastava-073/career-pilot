@@ -449,7 +449,7 @@ function Hero() {
             >
               <Mail size={16} /> Get In Touch
             </a>
-            <a href={data.personal.resumeUrl} style={{
+            <a href={data.personal.resumeUrl || '#'} style={{
               fontFamily: fontSans, fontSize: 15, fontWeight: 500, color: C.sandMid,
               background: `${C.sandDark}20`, border: `1px solid ${C.sandDark}50`,
               borderRadius: 10, padding: '14px 32px',
@@ -531,7 +531,9 @@ function Hero() {
    ABOUT
 ───────────────────────────────────────────── */
 function About() {
-  const { name, bio, avatar, location, email, phone } = data.personal;
+  const { name, bio, avatar, location } = data.personal;
+  const email = data.personal.email || data.socials.email;
+  const phone = data.personal.phone;
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
