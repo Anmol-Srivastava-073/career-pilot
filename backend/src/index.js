@@ -5,7 +5,7 @@ dotenv.config();
 
 import { createServer } from 'http';
 import cors from 'cors';
-import helmet from 'helmet';
+import { cspHeaders } from './middleware/cspHeaders.js';
 import rateLimit from 'express-rate-limit';
 import searchRoutes from './routes/search.js';
 import portfolioRoutes from './routes/portfolio.js';
@@ -125,53 +125,7 @@ app.use(cors({
 }));
 
 // Helmet security headers - configured to not interfere with CORS
-app.use(helmet({
-  crossOriginResourcePolicy: { policy: 'cross-origin' },
-  crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' },
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: [
-        "'self'",
-        "'unsafe-inline'",       // Required for React inline scripts
-        "https://apis.google.com",
-        "https://accounts.google.com",
-        "https://www.gstatic.com",
-      ],
-      styleSrc: [
-        "'self'",
-        "'unsafe-inline'",       // Required for Tailwind/inline styles
-        "https://fonts.googleapis.com",
-      ],
-      fontSrc: [
-        "'self'",
-        "https://fonts.gstatic.com",
-      ],
-      imgSrc: [
-        "'self'",
-        "data:",
-        "blob:",
-        "https:",                // Allow all HTTPS images (company logos etc)
-      ],
-      connectSrc: [
-        "'self'",
-        process.env.FRONTEND_URL || "http://localhost:5173",
-        "https://firebaseapp.com",
-        "https://*.googleapis.com",
-        "https://*.firebaseio.com",
-        "https://identitytoolkit.googleapis.com",
-        "wss:",                  // WebSocket for Socket.IO
-        "ws:",                   // WebSocket local dev
-      ],
-      frameSrc: [
-        "'self'",
-        "https://accounts.google.com",
-      ],
-      objectSrc: ["'none'"],
-      upgradeInsecureRequests: [],
-    },
-  },
-}));
+app.use(cspHeaders);
 const limiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes
   max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 1000, // increased for development
