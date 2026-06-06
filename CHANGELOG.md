@@ -1,3 +1,10 @@
+# [1.172.0](https://github.com/anurag3407/career-pilot/compare/v1.171.0...v1.172.0) (2026-06-06)
+
+
+### Features
+
+* Linkedin to Resume ([198fb37](https://github.com/anurag3407/career-pilot/commit/198fb375053245d8127775f644797bf8d22dbf6c))
+
 # [1.171.0](https://github.com/anurag3407/career-pilot/compare/v1.170.0...v1.171.0) (2026-06-06)
 
 
