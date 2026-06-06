@@ -124,9 +124,6 @@ useEffect(() => {
   skills
 ])
 
-// error state
-const [personalErrors, setPersonalErrors] = useState({})
-
   // ── error state ─────────────────────────────────────────────────────────────
   const [personalErrors,   setPersonalErrors]   = useState({})
   const [educationErrors,  setEducationErrors]  = useState([])   // array per entry
