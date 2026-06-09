@@ -79,6 +79,8 @@ export default function ResumeBuilder() {
   const [missingKeywords, setMissingKeywords] = useState([])
   const [resumeVersions, setResumeVersions] = useState([])
   const [selectedVersion, setSelectedVersion] = useState(null)
+  const [recommendedSkills, setRecommendedSkills] = useState([])
+  const [recommendedSkills, setRecommendedSkills] = useState([])
 
   useEffect(() => {
   const suggestions = []
@@ -141,6 +143,81 @@ export default function ResumeBuilder() {
 
  // ─────────────────── ATS Keyword Assessment Loop ───────────────────
   useEffect(() => {
+  const keywords = [
+    "React",
+    "JavaScript",
+    "Git",
+    "Node.js",
+    "API",
+    "Leadership",
+    "Teamwork",
+    "Problem Solving"
+  ]
+
+  const prioritySkills = [
+  "React",
+  "JavaScript",
+  "Node.js",
+  "API",
+  "Git",
+  "Leadership",
+  "Problem Solving",
+  "Teamwork"
+]
+
+const missing = keywords.filter(
+  keyword => !foundKeywords.includes(keyword)
+)
+
+setMissingKeywords(missing)
+
+const suggestions = prioritySkills.filter(
+  skill => missing.includes(skill)
+)
+
+setRecommendedSkills(
+  suggestions.slice(0, 4)
+)
+
+setRecommendedSkills(
+  suggestions.slice(0, 4)
+)
+
+  const resumeText = `
+    ${personal.summary}
+    ${skills}
+    ${projects.map(p => p.description).join(" ")}
+    ${experience.map(e => e.description).join(" ")}
+  `.toLowerCase()
+
+  const foundKeywords = keywords.filter(keyword =>
+    resumeText.includes(keyword.toLowerCase())
+  )
+
+  const missing = keywords.filter(
+  keyword => !foundKeywords.includes(keyword)
+)
+
+setMissingKeywords(missing)
+
+setRecommendedSkills(
+  missing.slice(0, 4)
+)
+
+setAtsScore(
+  Math.round(
+    (foundKeywords.length / keywords.length) * 100
+  )
+)
+}, [
+  personal,
+  skills,
+  projects,
+  experience
+])
+
+useEffect(() => {
+  const recommendations = []
     const resumeText = `
       ${personal?.summary || ''}
       ${skills || ''}
@@ -921,6 +998,82 @@ useEffect(() => {
     Save Version
   </button>
 </div>
+
+<div className="mb-6 p-4 rounded-xl border border-border bg-background/50">
+
+  <div className="flex justify-between items-center mb-2">
+    <h3 className="font-semibold">
+      Skill Gap Analysis
+    </h3>
+
+    <div className="mt-2">
+  <span
+    className={`px-3 py-1 rounded-full text-sm ${
+      atsScore >= 80
+        ? "bg-green-500/20 text-green-500"
+        : atsScore >= 60
+        ? "bg-yellow-500/20 text-yellow-500"
+        : "bg-red-500/20 text-red-500"
+    }`}
+  >
+    {atsScore >= 80
+      ? "Strong Match"
+      : atsScore >= 60
+      ? "Moderate Gap"
+      : "High Skill Gap"}
+  </span>
+</div>
+
+    <span className="text-primary font-bold">
+      {atsScore}% Match
+    </span>
+  </div>
+
+  <div className="w-full bg-secondary rounded-full h-3">
+    <div
+      className="bg-primary h-3 rounded-full transition-all duration-500"
+      style={{ width: `${atsScore}%` }}
+    />
+  </div>
+
+  {recommendedSkills.length > 0 && (
+  <div className="mt-4">
+    <h4 className="font-medium mb-2">
+      Recommended Skills to Learn
+    </h4>
+
+    <div className="flex flex-wrap gap-2">
+      {recommendedSkills.map(skill => (
+        <span
+          key={skill}
+          className="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-sm"
+        >
+          {skill}
+        </span>
+      ))}
+    </div>
+  </div>
+)}
+
+  <div className="mt-4">
+    <h4 className="font-medium mb-2">
+      Missing Skills
+    </h4>
+
+    <div className="flex flex-wrap gap-2">
+      {missingKeywords.map(skill => (
+        <span
+          key={skill}
+          className="px-3 py-1 rounded-full bg-red-500/20 text-red-400 text-sm"
+        >
+          {skill}
+        </span>
+      ))}
+    </div>
+  </div>
+
+</div>
+
 <div className="mb-6 p-4 rounded-xl border border-border bg-background/50">
   <div className="flex justify-between items-center mb-2">
     <h3 className="font-semibold">

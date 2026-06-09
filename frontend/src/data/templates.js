@@ -2592,6 +2592,7 @@ export const templates = [
   "createdAt": "2026-06-08",
   "isComplete": true
 },
+
   {
     "id": "Underground_Bunker_Console",
     "title": "Underground Bunker Console",

@@ -1,3 +1,38 @@
+# [1.200.0](https://github.com/anurag3407/career-pilot/compare/v1.199.0...v1.200.0) (2026-06-09)
+
+
+### Features
+
+* add skill gap visualization dashboard ([2e5fc9c](https://github.com/anurag3407/career-pilot/commit/2e5fc9cb2be5c6878cd126bae1be6e799a78efdb))
+
+# [1.199.0](https://github.com/anurag3407/career-pilot/compare/v1.198.2...v1.199.0) (2026-06-09)
+
+
+### Bug Fixes
+
+* remove invalid recommended skills calculation ([2d7c292](https://github.com/anurag3407/career-pilot/commit/2d7c2923aefeb4dce73a78ea8bfd76f792058104))
+
+
+### Features
+
+* add recommended skills learning suggestions in skill gap analysis ([8d933d4](https://github.com/anurag3407/career-pilot/commit/8d933d431c008111036f302ee1c2bce04147716f))
+
+## [1.198.2](https://github.com/anurag3407/career-pilot/compare/v1.198.1...v1.198.2) (2026-06-09)
+
+
+### Bug Fixes
+
+* **backend:** add fallback routes to return HTTP 400 for malformed interview IDs ([779de78](https://github.com/anurag3407/career-pilot/commit/779de78e8992997c3463324b46de38b44ccfca38))
+* **backend:** restrict interview id routes to valid ObjectIds to prevent route shadowing ([e95bbb5](https://github.com/anurag3407/career-pilot/commit/e95bbb5c90c718f28e8f1294e542a2fb28bf9f3f))
+
+## [1.198.1](https://github.com/anurag3407/career-pilot/compare/v1.198.0...v1.198.1) (2026-06-09)
+
+
+### Bug Fixes
+
+* add missing LineChart import in AppSidebar.jsx ([c623a8e](https://github.com/anurag3407/career-pilot/commit/c623a8e668271372df9b50924d069dda481642c8))
+* resolve syntax error and duplicate entries in templates.js ([087dcf4](https://github.com/anurag3407/career-pilot/commit/087dcf4028a8094439307935678b560d89ed58ae))
+
 # [1.198.0](https://github.com/anurag3407/career-pilot/compare/v1.197.1...v1.198.0) (2026-06-08)
 
 
