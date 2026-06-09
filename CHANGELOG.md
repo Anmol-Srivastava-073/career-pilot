@@ -1,3 +1,10 @@
+# [1.202.0](https://github.com/anurag3407/career-pilot/compare/v1.201.0...v1.202.0) (2026-06-09)
+
+
+### Features
+
+* add resume section completion tracker and milestones ([#3347](https://github.com/anurag3407/career-pilot/issues/3347)) ([7ceed2c](https://github.com/anurag3407/career-pilot/commit/7ceed2c414fa8a91142ccb2d6df570e38730a403))
+
 # [1.201.0](https://github.com/anurag3407/career-pilot/compare/v1.200.0...v1.201.0) (2026-06-09)
 
 
