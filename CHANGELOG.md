@@ -1,3 +1,10 @@
+## [1.211.1](https://github.com/anurag3407/career-pilot/compare/v1.211.0...v1.211.1) (2026-06-10)
+
+
+### Bug Fixes
+
+* replace dead Proxy checks with env var guards in paymentService.js ([8226003](https://github.com/anurag3407/career-pilot/commit/8226003097db5da2d27fd390569fb9caad98dfca))
+
 # [1.211.0](https://github.com/anurag3407/career-pilot/compare/v1.210.0...v1.211.0) (2026-06-10)
 
 
