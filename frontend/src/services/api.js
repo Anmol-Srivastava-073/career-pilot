@@ -464,7 +464,16 @@ export const portfolioApi = {
 
     return handleResponse(response);
   },
-
+  // Update portfolio section data
+  async update(portfolioId, data) {
+    const headers = await getAuthHeaders();
+    const response = await fetch(`${API_BASE}/portfolio/${portfolioId}`, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(data)
+    });
+    return handleResponse(response);
+  },
   // Deploy portfolio to Cloudflare Pages
   async deploy({ slug, sections, templateId, title, provider, token }) {
     const headers = await getAuthHeaders();
