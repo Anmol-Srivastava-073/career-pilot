@@ -1,3 +1,10 @@
+# [1.221.0](https://github.com/anurag3407/career-pilot/compare/v1.220.0...v1.221.0) (2026-06-11)
+
+
+### Features
+
+* **templates:** forensic-template ([7a8aae5](https://github.com/anurag3407/career-pilot/commit/7a8aae5c527aadcc699ea559cfa9723ed888bf23))
+
 # [1.220.0](https://github.com/anurag3407/career-pilot/compare/v1.219.0...v1.220.0) (2026-06-11)
 
 
