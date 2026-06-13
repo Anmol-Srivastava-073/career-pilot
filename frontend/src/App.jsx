@@ -3,12 +3,13 @@
  * Main Application Component with Route-based Code Splitting
  * Implements lazy loading for improved performance
  */
-
+import CoverLetter from "./pages/CoverLetter";
 import VercelDeploy from "./components/portfolio/templates/Vercel_Deploy/index";
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import StockTicker from "./components/portfolio/templates/Finance_Corporate/StockTicker";
 import Deployments from './pages/Deployments'
 import TemplateGallery from "./pages/TemplateGallery";
+import TemplatePreviewOnly from "./pages/TemplatePreviewOnly";
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
@@ -101,6 +102,7 @@ import SwissTypography from './components/portfolio/templates/Swiss_Typography/i
 import DesertDunes from './components/portfolio/templates/Desert_Dunes/index.jsx';
 import PsychedelicSwirl from './components/portfolio/templates/Psychedelic_Swirl/index.jsx';
 import MemphisPop from './components/portfolio/templates/Memphis_Pop/index.jsx';
+import HiddenEasterEggScavengerHunt from './components/portfolio/templates/Hidden_Easter_Egg_Scavenger_Hunt/index.jsx';
 import CassetteMixtape from './components/portfolio/templates/Cassette_Mixtape/index.jsx';
 import MagneticDock from './components/portfolio/templates/Magnetic_Dock/index.jsx';
 import Hero from './components/portfolio/templates/Magazine_Editorial/Hero';
@@ -110,7 +112,14 @@ import NeonCityscape from './components/portfolio/templates/Neon_Cityscape/index
 import PlanetaryOrbit from './components/portfolio/templates/Planetary_Orbit/index.jsx';
 import LowPolyTerrain from './components/portfolio/templates/Low_Poly_Terrain/index.jsx';
 import HighFashion from './components/portfolio/templates/High_Fashion/index.jsx';
+import TypographicWheatpastePosterWall from './components/portfolio/templates/Typographic_Wheatpaste_Poster_Wall/index.jsx';
+import DigitalManifestoScroll from './components/portfolio/templates/Digital_Manifesto_Scroll/index.jsx';
 import TestSocialLinks from './pages/TestSocialLinks';
+import ZineCollage from './components/portfolio/templates/ZineCollage';
+import TransparentDesktopOverlayOS from './components/portfolio/templates/Transparent_Desktop_Overlay_OS/index.jsx';
+import Commercial_Pilot_Cockpit from './components/portfolio/templates/Commercial_Pilot_Cockpit/index.jsx';
+import Book_Page_Flip_3D_Render from './components/portfolio/templates/Book_Page_Flip_3D_Render/index.jsx';
+import IKEA_Assembly_Manual from './components/portfolio/templates/IKEA_Assembly_Manual/index.jsx';
 
 function LoadingScreen({ label }) {
   return (
@@ -249,30 +258,39 @@ function AppRoutes() {
 
         {/* Template Gallery Route (Registered at /templates) */}
         <Route path="/templates" element={<TemplateGallery />} />
-
+        <Route path="/preview/:templateId" element={<TemplatePreviewOnly />} />
+        <Route path="/cover-letter" element={<CoverLetter />} />
         
 
-        <Route path="/templates/chatbot" element={<ChatbotPortfolio />} />
+               {/* <Route path="/templates/day-night-cycle" element={<DayNightCycle />} /> */}
 
-        {/* <Route path="/templates/day-night-cycle" element={<DayNightCycle />} /> */}
         <Route path="/templates/rainforest-canopy" element={<RainforestCanopy />} />
         <Route path="/templates/northern-fjords" element={<NorthernFjords />} />
         <Route path="/templates/duotone-bold" element={<DuotoneBold />} />
         <Route path="/templates/chromatic-glitch" element={<ChromaticGlitch />} />
         <Route path="/templates/swiss-typography" element={<SwissTypography />} />
+      
         <Route path="/templates/desert-dunes" element={<DesertDunes />} />
         <Route path="/templates/psychedelic-swirl" element={<PsychedelicSwirl />} />
         <Route path="/templates/memphis-pop" element={<MemphisPop />} />
         <Route path="/templates/cassette-mixtape" element={<CassetteMixtape />} />
+        <Route path="/templates/hidden-easter-egg-scavenger-hunt" element={<HiddenEasterEggScavengerHunt />} />
         <Route path="/templates/magnetic-dock" element={<MagneticDock />} />
         <Route path="/templates/ocean-depths" element={<OceanDepths />} />
         <Route path="/templates/neon-cityscape" element={<NeonCityscape />} />
         <Route path="/templates/planetary-orbit" element={<PlanetaryOrbit />} />
         <Route path="/templates/low-poly-terrain" element={<LowPolyTerrain />} />
         <Route path="/templates/high-fashion" element={<HighFashion />} />
+        <Route path="/templates/typographic-wheatpaste-poster-wall" element={<TypographicWheatpastePosterWall />} />
+        <Route path="/templates/digital-manifesto-scroll" element={<DigitalManifestoScroll />} />
 
+        <Route path="/templates/zine-collage" element={<ZineCollage />} />
         <Route path="/templates/chatbot" element={<ChatbotPortfolio />} /> 
         <Route path="/templates/glassmorphism" element={<GlassmorphismTemplate/>} />
+        <Route path="/templates/transparent-desktop-overlay-os" element={<TransparentDesktopOverlayOS />} />
+        <Route path="/templates/commercial-pilot-cockpit" element={<Commercial_Pilot_Cockpit />} />
+        <Route path="/templates/book-page-flip-3d-render" element={<Book_Page_Flip_3D_Render />} />
+        <Route path="/templates/ikea-assembly-manual" element={<IKEA_Assembly_Manual />} />
         {/* Core Protected Routes */}
         <Route 
   path="/dashboard" 
@@ -414,36 +432,9 @@ function AppRoutes() {
           }
         />
 
-        <Route 
-  path="/repo-analyzer" 
-  element={
-    <ProtectedRoute>
-      <Suspense fallback={<LoadingScreen label="Loading Analyzer..." />}>
-        <RepoAnalyzerLanding />
-      </Suspense>
-    </ProtectedRoute>
-  } 
-/>
-        <Route 
-  path="/repo-analyzer/dashboard" 
-  element={
-    <ProtectedRoute>
-      <Suspense fallback={<LoadingScreen label="Loading Analyzer Dashboard..." />}>
-        <RepoAnalyzerDashboard />
-      </Suspense>
-    </ProtectedRoute>
-  } 
-/>
-        <Route 
-  path="/repo-analyzer/workspace" 
-  element={
-    <ProtectedRoute>
-      <Suspense fallback={<LoadingScreen label="Loading Analyzer Workspace..." />}>
-        <RepoAnalyzerWorkspace />
-      </Suspense>
-    </ProtectedRoute>
-  } 
-/>
+        <Route path="/repo-analyzer" element={<Navigate to="/project-visualizer" replace />} />
+        <Route path="/repo-analyzer/dashboard" element={<Navigate to="/project-visualizer" replace />} />
+        <Route path="/repo-analyzer/workspace" element={<Navigate to="/project-visualizer" replace />} />
         <Route 
   path="/project-visualizer" 
   element={
