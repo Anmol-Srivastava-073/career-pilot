@@ -1422,6 +1422,31 @@ useEffect(() => {
   )}
 </div>
 
+{activeConsistencyWarnings.some(
+  item => item.type === "duplicate"
+) && (
+  <div className="mb-6 p-4 rounded-xl border border-yellow-500 bg-yellow-500/10">
+    <h3 className="font-semibold mb-3">
+      Duplicate Information Detector
+    </h3>
+
+    <ul className="space-y-2">
+      {activeConsistencyWarnings
+        .filter(
+          item => item.type === "duplicate"
+        )
+        .map((item, index) => (
+          <li
+            key={index}
+            className="text-sm text-yellow-400"
+          >
+            • {item.message}
+          </li>
+        ))}
+    </ul>
+  </div>
+)}
+
 <div className="bg-background border border-border rounded-xl p-6 h-[500px] overflow-y-auto font-mono text-sm whitespace-pre-wrap">
   {generateMarkdown()}
 </div>
