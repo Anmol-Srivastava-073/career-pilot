@@ -1,3 +1,10 @@
+# [1.252.0](https://github.com/anurag3407/career-pilot/compare/v1.251.1...v1.252.0) (2026-06-20)
+
+
+### Features
+
+* add GitHub OAuth sign-in to Login and Register pages ([#4183](https://github.com/anurag3407/career-pilot/issues/4183)) ([26cc7e1](https://github.com/anurag3407/career-pilot/commit/26cc7e175b887a7cac4ec31ccf85918e7c1645c6))
+
 ## [1.251.1](https://github.com/anurag3407/career-pilot/compare/v1.251.0...v1.251.1) (2026-06-20)
 
 
